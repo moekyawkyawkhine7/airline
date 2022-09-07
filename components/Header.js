@@ -5,11 +5,17 @@ import { GlobeAltIcon, MenuAlt1Icon, SearchIcon, UserCircleIcon, UserIcon } from
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import { DateRangePicker } from 'react-date-range';
+import { useRouter } from 'next/router';
 
-const Header = () => {
-  const [searchSearch, setSearchSearch] = useState("");
+const Header = ({
+  placeHolder
+}) => {
+  const [searchText, setSearchText] = useState("");
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
+  const [noOfGuests, setNoOfGuests] = useState(1);
+
+  let router = useRouter();
 
   const selectionRange = {
     startDate,
@@ -22,10 +28,34 @@ const Header = () => {
     setEndDate(ranges.selection.endDate);
   }
 
+  const resetSearchField= () => {
+    setSearchText("");
+    setStartDate(new Date());
+    setEndDate(new Date());
+    setNoOfGuests(1);
+  }
+
+  const handleSearch = () => {
+    router.push({
+      pathname: "search",
+      query: {
+        location: searchText,
+        startDate: startDate.toISOString(),
+        endDate: endDate.toISOString(),
+        noOfGuests
+      }
+    });
+    resetSearchField();
+  }
+
+  const goToHome = () => {
+    router.push("/");
+  }
+
   return (
     <header className="sticky z-50 p-5 md:p-10 grid grid-cols-3 bg-white shadow-md">
       {/* Left */}
-      <div className="relative flex items-center h-10 cursor-pointer my-auto">
+      <div onClick={goToHome} className="relative flex items-center h-10 cursor-pointer my-auto">
         <Image
           src="https://links.papareact.com/qd3"
           layout="fill"
@@ -36,7 +66,7 @@ const Header = () => {
       {/* Middle */}
       <div className="flex items-center md:border md:shadow-sm rounded-full">
         {/* Search Box */}
-        <input type="text" value={searchSearch} onChange={e => setSearchSearch(e.target.value)} placeholder="Start to search" className="flex-grow bg-transparent px-5 outline-none text-sm text-gray-300 placeholder-gray-500" />
+        <input type="text" value={searchText} onChange={e => setSearchText(e.target.value)} placeholder={placeHolder || "Start to search"} className="flex-grow bg-transparent px-5 outline-none text-sm placeholder-gray-300" />
         {/* Search Icon */}
         <SearchIcon className="h-7 w-7 mx-1.5 hidden md:inline-flex cursor-pointer bg-red-300 text-white rounded-full p-1" />
       </div>
@@ -50,7 +80,7 @@ const Header = () => {
         </div>
       </div>
       {/* Date Range Picker */}
-      {searchSearch?.trim() && (
+      {searchText?.trim() && (
         <div className="mt-5 absolute flex w-full justify-center top-[70px] transition duration-200 ease-in-out">
           <div className="bg-white flex px-3 py-3 border rounded-md shadow-md flex-col">
             <DateRangePicker
@@ -62,12 +92,12 @@ const Header = () => {
               <h1 className="text-lg font-semibold flex flex-grow">Number of Guests</h1>
               <div className="flex items-center">
                 <UserIcon className="h-6 w-6" />
-                <input type="number" min={1} defaultValue={1} className="outline-none text-red-500 pl-2 w-12" />
+                <input type="number" value={noOfGuests} onChange={e => setNoOfGuests(e.target.value)} min={1} defaultValue={1} className="outline-none text-red-500 pl-2 w-12" />
               </div>
             </div>
             <div className="flex justify-around pt-3">
-              <button className="text-sm font-medium">Cancel</button>
-              <button className="text-sm font-medium text-red-500">Search</button>
+              <button onClick={resetSearchField} className="text-sm font-medium">Cancel</button>
+              <button onClick={handleSearch} className="text-sm font-medium text-red-500">Search</button>
             </div>
           </div>
         </div>

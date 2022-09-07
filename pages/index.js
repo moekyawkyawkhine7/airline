@@ -12,9 +12,9 @@ const Home = ({
   placesData
 }) => {
   return (
-    <div className="">
+    <>
       <Head>
-        <title>Create Next App</title>
+        <title>AirBnb</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {/* Header */}
@@ -64,15 +64,15 @@ const Home = ({
       </main>
       {/* footer */}
       <Footer />
-    </div>
+    </>
   )
 }
 
 export default Home
 
 export async function getStaticProps() {
-  let exploreData = await fetch("https://links.papareact.com/pyp").then(res => res.json());
-  let placesData = await fetch("https://links.papareact.com/zp1").then(res => res.json())
+  let exploreData = await fetch("http://localhost:3000/api/explore").then(res => res.json());
+  let placesData = await fetch("http://localhost:3000/api/places").then(res => res.json())
   return {
     props: {
       exploreData,

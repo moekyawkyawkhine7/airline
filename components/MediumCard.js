@@ -8,7 +8,7 @@ const MediumCard = ({ img, title}) => {
             <Image
                 src={img}
                 layout="fill"
-                objectFit="contain"
+                objectFit="cover"
                 className="rounded-xl"
             />
         </div>

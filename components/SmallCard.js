@@ -9,7 +9,7 @@ const SmallCard = ({ img, location, distance }) => {
                 <Image
                     src={img}
                     layout="fill"
-                    objectFit="contain"
+                    objectFit="cover"
                     className="rounded-lg"
                 />
             </div>
