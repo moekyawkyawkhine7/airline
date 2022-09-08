@@ -6,7 +6,7 @@ import { format } from 'date-fns'
 import { useRouter } from 'next/router'
 import InfoCard from '../components/InfoCard'
 
-const search = () => {
+const search = ({ searchData }) => {
     let router = useRouter();
     let {
         location,
@@ -17,7 +17,7 @@ const search = () => {
 
     const formatedStartDate = startDate ? format(new Date(startDate), "dd MMMM yy") : "";
     const formatedEndDate = endDate ? format(new Date(endDate), "dd MMMM yy") : "";
-    let range= `${formatedStartDate} - ${formatedEndDate}`;
+    let range = `${formatedStartDate} - ${formatedEndDate}`;
 
     return (
         <>
@@ -25,9 +25,9 @@ const search = () => {
                 <title>AirBnb - Search Page</title>
             </Head>
             <Header
-              placeHolder={`${location || ""} | ${range} | ${noOfGuests || ""}`}
+                placeHolder={`${location || ""} | ${range} | ${noOfGuests || ""}`}
             />
-            <main>
+            <main className="pb-14">
                 <section className="flex-grow space-y-3 pt-14 px-6">
                     <p className="text-sm">
                         300+ Stays - {range} - for {noOfGuests}
@@ -42,10 +42,10 @@ const search = () => {
                         <h1 className='button'>Rooms and Beds</h1>
                         <h1 className='button'>More Filter</h1>
                     </div>
-               
-                    <InfoCard />
-                    <InfoCard />
-                    <InfoCard />
+
+                    {searchData.map(({ img, destination, rate, description, price }) => (
+                        <InfoCard key={img} noOfGuests={noOfGuests} destination={destination} img={img} rate={rate} description={description} price={price} />
+                    ))}
                 </section>
             </main>
             <Footer />
@@ -54,3 +54,18 @@ const search = () => {
 }
 
 export default search
+
+export async function getServerSideProps(context) {
+    let {
+        location,
+        startDate,
+        endDate,
+        noOfGuests
+    } = context.query;
+    let searchData = await fetch(`http://localhost:3000/api/locations?location=${location}&startDate=${startDate}&endDate=${endDate}&noOfGuests=${noOfGuests}`).then(res => res.json())
+    return {
+        props: {
+            searchData
+        }
+    }
+}
