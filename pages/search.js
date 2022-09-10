@@ -1,10 +1,8 @@
 import Head from 'next/head'
 import React from 'react'
-import Footer from '../components/Footer'
-import Header from '../components/Header'
 import { format } from 'date-fns'
 import { useRouter } from 'next/router'
-import InfoCard from '../components/InfoCard'
+import { Header, Footer, InfoCard, Map } from "../components";
 
 const search = ({ searchData }) => {
     let router = useRouter();
@@ -27,7 +25,7 @@ const search = ({ searchData }) => {
             <Header
                 placeHolder={`${location || ""} | ${range} | ${noOfGuests || ""}`}
             />
-            <main className="pb-14">
+            <main className="pb-14 flex">
                 <section className="flex-grow space-y-3 pt-14 px-6">
                     <p className="text-sm">
                         300+ Stays - {range} - for {noOfGuests}
@@ -47,6 +45,11 @@ const search = ({ searchData }) => {
                         <InfoCard key={img} noOfGuests={noOfGuests} destination={destination} img={img} rate={rate} description={description} price={price} />
                     ))}
                 </section>
+                <div className='hidden md:inline-flex w-1/3 h-auto'>
+                    <Map
+                        searchData={searchData}
+                    />
+                </div>
             </main>
             <Footer />
         </>
