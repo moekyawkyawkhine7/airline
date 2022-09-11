@@ -35,7 +35,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
         },
         {
             img: "https://a0.muscache.com/im/pictures/b814a880-e3bd-49a9-b6a8-09028afd8acd.jpg",
-            destination: "USA",
+            destination: "USA, Example 3",
             rate: "3.8",
             description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, maiores. Dolore rerum quasi delectus",
             startDate: dateFormat("9-10-2022"),
@@ -46,7 +46,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
         },
         {
             img: "https://a0.muscache.com/im/pictures/d91d2d91-58dd-4f07-be46-284d9752cf72.jpg",
-            destination: "USA",
+            destination: "USA, Example 2",
             rate: "5.0",
             description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, maiores. Dolore rerum quasi delectus",
             startDate: dateFormat("9-10-2022"),
@@ -57,7 +57,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
         },
         {
             img: "https://a0.muscache.com/im/pictures/miso/Hosting-26934863/original/bb76077c-793e-4eb6-b7f4-7d3f7066d345.jpeg",
-            destination: "USA",
+            destination: "USA, Example 1",
             rate: "4.8",
             description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, maiores. Dolore rerum quasi delectus",
             startDate: dateFormat("9-10-2022"),

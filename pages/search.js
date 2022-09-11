@@ -45,7 +45,7 @@ const search = ({ searchData }) => {
                         <InfoCard key={img} noOfGuests={noOfGuests} destination={destination} img={img} rate={rate} description={description} price={price} />
                     ))}
                 </section>
-                <div className='hidden md:inline-flex w-1/3 h-auto'>
+                <div className='hidden md:inline-flex w-1/3 h-[700px]'>
                     <Map
                         searchData={searchData}
                     />
